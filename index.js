@@ -13,17 +13,17 @@ let headers = {
   "api-key": `${process.env.DEV_API_KEY}`
 }
 
-const getData = async devurl => {
-  try {
-    const response = await fetch(devurl, { method: 'GET', headers: headers});
-    const json = await response.json();
-    console.log(json);
-  } catch (error) {
-    console.log(error);
-  }
-};
-devPosts = getData(devurl);
-console.log(devPosts);
+// const getData = async devurl => {
+//   try {
+//     const response = await fetch(devurl, { method: 'GET', headers: headers});
+//     const json = await response.json();
+//     console.log(json);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// devPosts = getData(devurl);
+// console.log(devPosts);
 
 // Run your GitHub Action!
 Toolkit.run(async tools => {
@@ -37,10 +37,11 @@ Toolkit.run(async tools => {
 
     // Get contents of _posts folder
     let path = '_posts/'
-    const posts = await tools.github.repos.getContents({
+    const postsResponse = await tools.github.repos.getContents({
       owner,
       repo,
       path
     });
-    console.log(`HERE ARE THE POSTS: ${posts}`);
+    const postsData = await postsResponse.json();
+    console.log(`HERE ARE THE POSTS: ${postsData}`);
 });
