@@ -12,10 +12,7 @@ let headers = {
   "Content-Type": "application/json",
   "api-key": `${process.env.DEV_API_KEY}`
 }
-let query = {
-  "page": "1",
-  "per_page": "6"
-}
+
 const getData = async devurl => {
   try {
     const response = await fetch(devurl, { method: 'GET', headers: headers});
@@ -36,6 +33,14 @@ Toolkit.run(async tools => {
     // Assign data to variables
     const owner = tools.context.payload.repository.owner.login;
     const repo = tools.context.payload.repository.name;
-
     console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
+
+    // Get contents of _posts folder
+    let path = '_posts/'
+    const posts = await tools.github.repos.getContents({
+      owner,
+      repo,
+      path
+    });
+    console.log(`HERE ARE THE POSTS: ${posts}`);
 });
