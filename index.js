@@ -37,11 +37,10 @@ Toolkit.run(async tools => {
 
     // Get contents of _posts folder
     let path = '_posts/'
-    const postsResponse = await tools.github.repos.getContents({
+    const posts = await tools.github.repos.getContents({
       owner,
       repo,
       path
-    });
-    const postsData = await postsResponse.json();
-    console.log(`HERE ARE THE POSTS: ${postsData}`);
+    }).data;
+    console.log(`HERE ARE THE POSTS: ${posts}`);
 });
