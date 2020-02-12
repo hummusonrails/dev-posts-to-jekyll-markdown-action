@@ -2,7 +2,7 @@ const { Toolkit } = require('actions-toolkit')
 const dotenv = require("dotenv");
 dotenv.config();
 const fetch = require("node-fetch");
-const devurl = "https://dev.to/api/articles/me"
+const devurl = "https://dev.to/api/articles/me?page=1&per_page=6"
 
 // Create variable to hold DEV Posts
 let devPosts = [];
@@ -18,7 +18,7 @@ let query = {
 }
 const getData = async devurl => {
   try {
-    const response = await fetch(devurl, { method: 'POST', headers: headers, body: query});
+    const response = await fetch(devurl, { method: 'GET', headers: headers});
     const json = await response.json();
     console.log(json);
   } catch (error) {
