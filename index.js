@@ -25,7 +25,7 @@ const getData = async devurl => {
     console.log(error);
   }
 };
-devPosts = getData(url);
+devPosts = getData(devurl);
 console.log(devPosts);
 
 // Run your GitHub Action!
