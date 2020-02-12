@@ -18,7 +18,7 @@ let query = {
 }
 const getData = async devurl => {
   try {
-    const response = await fetch(devurl, { method: 'GET', headers: headers, body: query});
+    const response = await fetch(devurl, { method: 'POST', headers: headers, body: query});
     const json = await response.json();
     console.log(json);
   } catch (error) {
