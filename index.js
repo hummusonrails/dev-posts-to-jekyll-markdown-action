@@ -42,7 +42,7 @@ Toolkit.run(async tools => {
     const posts = (await tools.github.repos.getContents({
       owner,
       repo,
-      path: './_posts'
+      path: '_posts'
     })).data;
     console.log(`HERE ARE THE POSTS: ${posts}`);
 
