@@ -26,6 +26,8 @@ let devPosts = [];
 
 // Get date and title of latest blog post
 
+// Count number of DEV posts
+
 // Run your GitHub Action!
 Toolkit.run(async tools => {
     // Print out the context in Actions dashboard
@@ -42,7 +44,7 @@ Toolkit.run(async tools => {
       repo,
       path: '_posts'
     })).data;
-    console.log(`HERE ARE THE POSTS: ${posts}`);
+    console.log(`HERE ARE THE POSTS: ${posts.data}`);
 
     // Count the number of posts in repo posts folder 
 
