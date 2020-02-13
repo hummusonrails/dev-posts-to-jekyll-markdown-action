@@ -41,7 +41,8 @@ Toolkit.run(async tools => {
     // Get contents of _posts folder
     const posts = (await tools.github.repos.getContents({
       owner,
-      repo
+      repo,
+      path
     })).data;
     console.log(`HERE ARE THE POSTS: ${posts}`);
 
