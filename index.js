@@ -45,8 +45,9 @@ Toolkit.run(async tools => {
       repo,
       path
     })).data;
-    for (name in JSON.stringify(posts)) {
-      console.log(name);
+    for (post in posts) {
+      console.log(`KEYS: ${Object.keys(post)}`);
+      console.log(`VALUES: ${Object.values(post)}`);
     };
     // console.log(`HERE ARE THE POSTS: ${JSON.stringify(posts)}`);
 
