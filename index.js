@@ -39,10 +39,11 @@ Toolkit.run(async tools => {
     console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
     // Get contents of _posts folder
-    const posts = (await tools.github.repos.getContents({
+    let path = '_posts';
+    const posts = (await tools.github.repos.getContent({
       owner,
       repo,
-      path: '_posts'
+      path
     })).data;
     console.log(`HERE ARE THE POSTS: ${posts}`);
 
