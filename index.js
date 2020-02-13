@@ -40,12 +40,13 @@ Toolkit.run(async tools => {
 
     // Get contents of _posts folder
     let path = '_posts';
-    const posts = (await tools.github.repos.getContents({
+    let posts = (await tools.github.repos.getContents({
       owner,
       repo,
       path
     })).data;
-    for (post in JSON.stringify(posts)) {
+    posts = JSON.stringify(posts);
+    for (post in posts) {
       console.log(`KEYS: ${Object.keys(post)}`);
       console.log(`VALUES: ${Object.values(post)}`);
     };
