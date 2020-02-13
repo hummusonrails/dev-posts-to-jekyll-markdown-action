@@ -41,10 +41,9 @@ Toolkit.run(async tools => {
     // Get contents of _posts folder
     const posts = (await tools.github.repos.getContents({
       owner,
-      repo,
-      path: '_posts'
+      repo
     })).data;
-    console.log(`HERE ARE THE POSTS: ${posts.data}`);
+    console.log(`HERE ARE THE POSTS: ${posts}`);
 
     // Count the number of posts in repo posts folder 
 
