@@ -12,13 +12,10 @@ let headers = {
   "api-key": `${process.env.DEV_API_KEY}`
 }
 function getData(devurl) {
-  return fetch(devurl, { method: 'GET', headers: headers})
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function(posts) {
-      devPosts = posts;
-    });
+  fetch(devurl, { method: 'GET', headers: headers})
+    .then(res => res.json())
+    .then(data => devPosts = data)
+    .then(() => console.log(devPosts))
 };
 getData('https://dev.to/api/articles/me?page=1&per_page=6');
 
