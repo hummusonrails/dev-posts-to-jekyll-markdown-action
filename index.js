@@ -24,7 +24,7 @@ const getData = async devurl => {
 devPosts = getData(devurl);
 
 //console.log(devPosts);
-console.log(`DEVPOSTS VARIABLE: ${devPosts});
+console.log(`DEVPOSTS VARIABLE: ${devPosts}`);
 
 // Get date and title of latest blog post
 // let devPostDate = devPosts[0]['published_at'];
