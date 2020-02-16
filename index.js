@@ -8,25 +8,30 @@ const devurl = "https://dev.to/api/articles/me?page=1&per_page=6"
 let devPosts = [];
 
 // Get Latest DEV Posts
-// let headers = {
-//   "Content-Type": "application/json",
-//   "api-key": `${process.env.DEV_API_KEY}`
-// }
-// const getData = async devurl => {
-//   try {
-//     const response = await fetch(devurl, { method: 'GET', headers: headers});
-//     const json = await response.json();
-//     console.log(json);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// devPosts = getData(devurl);
-// console.log(devPosts);
+let headers = {
+  "Content-Type": "application/json",
+  "api-key": `${process.env.DEV_API_KEY}`
+}
+const getData = async devurl => {
+  try {
+    const response = await fetch(devurl, { method: 'GET', headers: headers});
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.log(error);
+  }
+};
+devPosts = getData(devurl);
+console.log(devPosts);
 
 // Get date and title of latest blog post
+let devPostDate = devPosts[0]['published_at'];
+let devPostTitle = devPosts[0]['title'];
+console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
 
 // Count number of DEV posts
+numOfDevPosts = devPosts.length;
+console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
 
 // Run your GitHub Action!
 Toolkit.run(async tools => {
