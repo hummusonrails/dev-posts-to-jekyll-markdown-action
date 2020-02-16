@@ -16,11 +16,14 @@ function getData(devurl) {
     .then(function (response) {
       return response.json();
     })
-    .then(function (posts) {
+    .then(function(posts) {
       return posts;
+    })
+    .then(function(posts) {
+      devPosts = posts;
     });
 };
-devPosts = getData('https://dev.to/api/articles/me?page=1&per_page=6');
+getData('https://dev.to/api/articles/me?page=1&per_page=6');
 
 //console.log(devPosts);
 console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`);
