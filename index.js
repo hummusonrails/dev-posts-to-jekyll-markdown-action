@@ -21,7 +21,7 @@ const getData = async devurl => {
     console.log(error);
   }
 };
-devPosts = getData(devurl);
+devPosts = await getData(devurl);
 
 //console.log(devPosts);
 console.log(`DEVPOSTS VARIABLE: ${devPosts}`);
