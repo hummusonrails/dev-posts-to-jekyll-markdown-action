@@ -37,7 +37,7 @@ console.log(devPosts[0])
 // Run your GitHub Action!
 Toolkit.run(async tools => {
     // Print out the context in Actions dashboard
-    console.log(tools.context);
+    // console.log(tools.context);
 
     // Assign owner and repo data to variables
     const owner = tools.context.payload.repository.owner.login;
@@ -51,11 +51,6 @@ Toolkit.run(async tools => {
       repo,
       path
     })).data;
-    posts = JSON.stringify(posts);
-    for (post in posts) {
-      console.log(`KEYS: ${Object.keys(post)}`);
-      console.log(`VALUES: ${Object.values(post)}`);
-    };
     // console.log(`HERE ARE THE POSTS: ${JSON.stringify(posts)}`);
 
     // Count the number of posts in repo posts folder 
