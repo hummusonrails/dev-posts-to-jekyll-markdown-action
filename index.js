@@ -12,7 +12,7 @@ let headers = {
   "api-key": `${process.env.DEV_API_KEY}`
 }
 function getData(devurl) {
-  fetch(devurl, { method: 'GET', headers: headers})
+  return fetch(devurl, { method: 'GET', headers: headers})
     .then(res => res.json())
     .then(data => data);
 };
