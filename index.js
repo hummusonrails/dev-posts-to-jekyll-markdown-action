@@ -14,10 +14,10 @@ let headers = {
 function getData(devurl) {
   fetch(devurl, { method: 'GET', headers: headers})
     .then(res => res.json())
-    .then(data => devPosts = data)
-    .then(() => console.log(devPosts))
+    .then(data => data);
 };
-getData('https://dev.to/api/articles/me?page=1&per_page=6');
+getData('https://dev.to/api/articles/me?page=1&per_page=6')
+  .then(result => devPosts = result);
 
 //console.log(devPosts);
 console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`);
