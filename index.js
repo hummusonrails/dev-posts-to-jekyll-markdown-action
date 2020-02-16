@@ -17,13 +17,13 @@ fetch('https://dev.to/api/articles/me?page=1&per_page=6', { method: 'GET', heade
   .then(() => console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`));
 
 // Get date and title of latest blog post
-// let devPostDate = devPosts[0]['published_at'];
-// let devPostTitle = devPosts[0]['title'];
-// console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
+let devPostDate = devPosts[0]['published_at'];
+let devPostTitle = devPosts[0]['title'];
+console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
 
 // // Count number of DEV posts
-// numOfDevPosts = devPosts.length;
-// console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
+numOfDevPosts = devPosts.length;
+console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
 
 // Run your GitHub Action!
 Toolkit.run(async tools => {
@@ -36,13 +36,13 @@ Toolkit.run(async tools => {
     console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
     // Get contents of _posts folder
-    // let path = '_posts';
-    // let posts = (await tools.github.repos.getContents({
-    //   owner,
-    //   repo,
-    //   path
-    // })).data;
-    // console.log(`HERE ARE THE POSTS: ${JSON.stringify(posts)}`);
+    let path = '_posts';
+    let posts = (await tools.github.repos.getContents({
+      owner,
+      repo,
+      path
+    })).data;
+    console.log(`HERE ARE THE POSTS: ${JSON.stringify(posts)}`);
 
     // Count the number of posts in repo posts folder 
 
