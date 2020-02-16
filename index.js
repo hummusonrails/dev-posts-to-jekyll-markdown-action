@@ -12,19 +12,18 @@ let headers = {
   "Content-Type": "application/json",
   "api-key": `${process.env.DEV_API_KEY}`
 }
-const getData = async devurl => {
+const getData = () => {
   try {
-    const response = await fetch(devurl, { method: 'GET', headers: headers});
-    const json = await response.json();
-    console.log(json);
+    fetch(devurl, { method: 'GET', headers: headers})
+      .then((resp) => resp.json());
   } catch (error) {
     console.log(error);
-  }
+  };
 };
-devPosts = await getData(devurl);
+devPosts = getData(devurl);
 
 //console.log(devPosts);
-console.log(`DEVPOSTS VARIABLE: ${devPosts}`);
+console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`);
 
 // Get date and title of latest blog post
 // let devPostDate = devPosts[0]['published_at'];
