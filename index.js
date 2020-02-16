@@ -14,9 +14,7 @@ var headers = {
 fetch('https://dev.to/api/articles/me?page=1&per_page=6', { method: 'GET', headers: headers})
   .then(res => res.json())
   .then(data => devPosts = data)
-
-//console.log(devPosts);
-console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`);
+  .then(() => console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`));
 
 // Get date and title of latest blog post
 // let devPostDate = devPosts[0]['published_at'];
