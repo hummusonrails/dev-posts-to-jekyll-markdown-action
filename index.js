@@ -2,7 +2,6 @@ const { Toolkit } = require('actions-toolkit')
 const dotenv = require("dotenv");
 dotenv.config();
 const fetch = require("node-fetch");
-const devurl = "https://dev.to/api/articles/me?page=1&per_page=6"
 
 // Create variable to hold DEV Posts
 let devPosts = [];
@@ -21,7 +20,7 @@ function getData(devurl) {
       return posts;
     });
 };
-devPosts = getData(devurl);
+devPosts = getData('https://dev.to/api/articles/me?page=1&per_page=6');
 
 //console.log(devPosts);
 console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`);
