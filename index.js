@@ -4,7 +4,7 @@ dotenv.config();
 const fetch = require("node-fetch");
 
 // Create variable to hold DEV Posts
-let devPosts = [];
+let devPosts;
 
 // Get Latest DEV Posts
 let headers = {
@@ -15,9 +15,6 @@ function getData(devurl) {
   return fetch(devurl, { method: 'GET', headers: headers})
     .then(function (response) {
       return response.json();
-    })
-    .then(function(posts) {
-      return posts;
     })
     .then(function(posts) {
       devPosts = posts;
