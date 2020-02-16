@@ -4,20 +4,16 @@ dotenv.config();
 const fetch = require("node-fetch");
 
 // Create variable to hold DEV Posts
-let devPosts;
+var devPosts;
 
 // Get Latest DEV Posts
-let headers = {
+var headers = {
   "Content-Type": "application/json",
   "api-key": `${process.env.DEV_API_KEY}`
 }
-function getData(devurl) {
-  return fetch(devurl, { method: 'GET', headers: headers})
-    .then(res => res.json())
-    .then(data => data);
-};
-getData('https://dev.to/api/articles/me?page=1&per_page=6')
-  .then(result => devPosts = result);
+fetch('https://dev.to/api/articles/me?page=1&per_page=6', { method: 'GET', headers: headers})
+  .then(res => res.json())
+  .then(data => devPosts = data)
 
 //console.log(devPosts);
 console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`);
@@ -42,12 +38,12 @@ Toolkit.run(async tools => {
     console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
     // Get contents of _posts folder
-    let path = '_posts';
-    let posts = (await tools.github.repos.getContents({
-      owner,
-      repo,
-      path
-    })).data;
+    // let path = '_posts';
+    // let posts = (await tools.github.repos.getContents({
+    //   owner,
+    //   repo,
+    //   path
+    // })).data;
     // console.log(`HERE ARE THE POSTS: ${JSON.stringify(posts)}`);
 
     // Count the number of posts in repo posts folder 
