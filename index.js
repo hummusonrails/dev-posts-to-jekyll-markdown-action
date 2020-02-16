@@ -22,8 +22,9 @@ const getData = async devurl => {
   }
 };
 devPosts = getData(devurl);
+
 //console.log(devPosts);
-console.log("DEV POSTS IN [1]: " + devPosts[1]);
+console.log("DEV POSTS IN [0]: " + JSON.parse(devPosts)[0]);
 
 // Get date and title of latest blog post
 // let devPostDate = devPosts[0]['published_at'];
