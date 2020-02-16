@@ -12,11 +12,15 @@ let headers = {
   "Content-Type": "application/json",
   "api-key": `${process.env.DEV_API_KEY}`
 }
-const getData = async (devurl) => {	
-  let response = await fetch(devurl, { method: 'GET', headers: headers});
-  let data = await response.json();
-  return data;
-}
+function getData(devurl) {
+  return fetch(devurl, { method: 'GET', headers: headers})
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (posts) {
+      return posts;
+    });
+};
 devPosts = getData(devurl);
 
 //console.log(devPosts);
