@@ -3,15 +3,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 const axios = require('axios').default;
 
-// Create variable to hold DEV Posts
-var devPosts;
-
 // Get Latest DEV Posts
 var headers = {
   "Content-Type": "application/json",
   "api-key": `${process.env.DEV_API_KEY}`
 }
-async function getData() {
+
+const getData = async () => {
   await axios({
     method: 'get',
     url: 'https://dev.to/api/articles/me?page=1&per_page=6',
@@ -21,8 +19,11 @@ async function getData() {
       devPosts = res.data
       return devPosts;
     });
-}
-getData();
+};
+getData().then(response => {
+  devPosts = response.data;
+});
+
 console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 // Get date and title of latest blog post
 //var devPostDate = devPosts[0]['published_at'];
