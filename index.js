@@ -23,13 +23,13 @@ axios({
     return devPosts;
   });
 // Get date and title of latest blog post
-let devPostDate = devPosts[0]['published_at'];
-let devPostTitle = devPosts[0]['title'];
-console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
+//let devPostDate = devPosts[0]['published_at'];
+//let devPostTitle = devPosts[0]['title'];
+//console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
 
 // // Count number of DEV posts
-numOfDevPosts = devPosts.length;
-console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
+//numOfDevPosts = devPosts.length;
+//console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
 
 // Run your GitHub Action!
 Toolkit.run(async tools => {
