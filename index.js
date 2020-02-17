@@ -9,8 +9,8 @@ var headers = {
   "api-key": `${process.env.DEV_API_KEY}`
 }
 
-const getData = async () => {
-  const result = await axios({
+const getData = () => {
+  return axios({
     method: 'get',
     url: 'https://dev.to/api/articles/me?page=1&per_page=6',
     headers: headers
@@ -19,13 +19,8 @@ const getData = async () => {
     //   devPosts = res.data
     //   return devPosts;
     // });
-    return result;
 };
-getData().then(response => {
-  const devPosts = response.data;
-  
-  return devPosts;
-});
+const devPosts = await getData();
 
 console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 // Get date and title of latest blog post
