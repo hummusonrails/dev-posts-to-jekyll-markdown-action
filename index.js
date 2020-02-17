@@ -19,6 +19,7 @@ axios({
   .then(res => res.data)
   .then(res => {
     devPosts = res
+    console.log(devPosts)
     return devPosts;
   });
 // Get date and title of latest blog post
