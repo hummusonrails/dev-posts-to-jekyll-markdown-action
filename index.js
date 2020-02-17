@@ -16,16 +16,16 @@ axios({
   url: 'https://dev.to/api/articles/me?page=1&per_page=6',
   headers: headers
 })
-  .then(res => res.data)
   .then(res => {
-    devPosts = res
+    devPosts = res.data
     console.log(devPosts)
     return devPosts;
   });
+console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 // Get date and title of latest blog post
-var devPostDate = devPosts[0]['published_at'];
+//var devPostDate = devPosts[0]['published_at'];
 //let devPostTitle = devPosts[0]['title'];
-console.log(`DATE OF POST: ${devPostDate}`);
+//console.log(`DATE OF POST: ${devPostDate}`);
 
 // // Count number of DEV posts
 //numOfDevPosts = devPosts.length;
