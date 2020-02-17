@@ -20,7 +20,7 @@ const getData = () => {
     //   return devPosts;
     // });
 };
-const devPosts = await getData();
+const devPosts = async function(){await getData()};
 
 console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 // Get date and title of latest blog post
