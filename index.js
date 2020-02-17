@@ -23,9 +23,9 @@ axios({
     return devPosts;
   });
 // Get date and title of latest blog post
-//let devPostDate = devPosts[0]['published_at'];
+var devPostDate = devPosts[0]['published_at'];
 //let devPostTitle = devPosts[0]['title'];
-//console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
+console.log(`DATE OF POST: ${devPostDate}`);
 
 // // Count number of DEV posts
 //numOfDevPosts = devPosts.length;
