@@ -18,7 +18,6 @@ axios({
 })
   .then(res => {
     devPosts = res.data
-    console.log(devPosts)
     return devPosts;
   });
 console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
