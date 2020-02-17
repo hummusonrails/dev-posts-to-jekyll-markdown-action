@@ -10,18 +10,21 @@ var headers = {
 }
 
 const getData = async () => {
-  await axios({
+  const result = await axios({
     method: 'get',
     url: 'https://dev.to/api/articles/me?page=1&per_page=6',
     headers: headers
   })
-    .then(res => {
-      devPosts = res.data
-      return devPosts;
-    });
+    // .then(res => {
+    //   devPosts = res.data
+    //   return devPosts;
+    // });
+    return result;
 };
 getData().then(response => {
-  devPosts = response.data;
+  const devPosts = response.data;
+  
+  return devPosts;
 });
 
 console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
