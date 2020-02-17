@@ -1,7 +1,7 @@
 const { Toolkit } = require('actions-toolkit')
 const dotenv = require("dotenv");
 dotenv.config();
-const fetch = require("node-fetch");
+const axios = require('axios').default;
 
 // Create variable to hold DEV Posts
 var devPosts;
@@ -11,11 +11,16 @@ var headers = {
   "Content-Type": "application/json",
   "api-key": `${process.env.DEV_API_KEY}`
 }
-fetch('https://dev.to/api/articles/me?page=1&per_page=6', { method: 'GET', headers: headers})
-  .then(res => res.json())
-  .then(data => devPosts = data)
-  .then(() => console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`));
-
+axios({
+  method: 'get',
+  url: 'https://dev.to/api/articles/me?page=1&per_page=6',
+  headers: headers
+})
+  .then(data => data.json())
+  .then(data => { 
+    devPosts = data
+    return devPosts;
+  });
 // Get date and title of latest blog post
 let devPostDate = devPosts[0]['published_at'];
 let devPostTitle = devPosts[0]['title'];
