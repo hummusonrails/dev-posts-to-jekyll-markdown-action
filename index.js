@@ -16,9 +16,9 @@ axios({
   url: 'https://dev.to/api/articles/me?page=1&per_page=6',
   headers: headers
 })
-  .then(data => data.json())
-  .then(data => { 
-    devPosts = data
+  .then(res => res.data)
+  .then(res => {
+    devPosts = res
     return devPosts;
   });
 // Get date and title of latest blog post
