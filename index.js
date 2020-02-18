@@ -19,6 +19,8 @@ Toolkit.run(async tools => {
   var devPosts; // All posts
   var devPostDate; // Date of most recently published DEV post
   var devPostTitle; // Title of most recently published DEV post
+  var devPostCoverImage; // Cover Image of most recent published DEV post
+  var devPostURL; // URL to most recently published DEV post
   var numOfDevPosts; // Count of DEV posts
   var headers = {
     "Content-Type": "application/json",
@@ -35,6 +37,8 @@ Toolkit.run(async tools => {
   devPosts = (await getData()).data;
   devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
   devPostTitle = devPosts[0]['title'];
+  devPostCoverImage = devPosts[0]['cover_image'];
+  devPostURL = devPosts[0]['url'];
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
 
@@ -49,6 +53,8 @@ Toolkit.run(async tools => {
   var postTitle; // Latest repo post title
   var postDate; // Latest repo post date
   var lastPostPath; // Path to oldest repo post
+  var lastPostSHA; // SHA for oldest repo post
+  var newFile; // Pull Request
 
   // Get repo posts data
   posts = (await tools.github.repos.getContents({
@@ -67,6 +73,9 @@ Toolkit.run(async tools => {
   // Get the path to the last blog post in repo
   lastPostPath = posts[postsCount -1]["path"];
 
+  // Get SHA of last repo post
+  lastPostSHA = posts[postsCount -1]["sha"];
+
   // Check to see if the latest DEV post is newer than the latest repo post
   if (new Date(devPostDate) >= new Date(postDate)) {
     console.log("dev date is newer");
@@ -77,6 +86,26 @@ Toolkit.run(async tools => {
     } else if ((postsCount < process.env.NUM_OF_POSTS) && (numOfDevPosts > postsCount)) {
       // Is there less posts in the repo than # set by env var and more posts in DEV posts count?
       console.log("there are less repo posts than set by env var & more DEV posts than in repo");
+      fileContents = `
+      ---
+      layout: defaults
+      modal-id: ${postsCount+1}
+      date: ${devPostDate}
+      img: ${devPostCoverImage}
+      alt: Cover Image
+      title: ${devPostTitle}
+      link: ${devPostURL}
+      
+      ---
+      `.trim();
+      const encodedContents = btoa(fileContents);
+      newFile = (await tools.github.repos.createOrUpdateFile({
+        owner,
+        repo,
+        path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
+        message: `New markdown file for ${devPostTitle}`,
+        encodedContents
+      }));
     };
   };
 });
