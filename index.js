@@ -55,16 +55,14 @@ Toolkit.run(async tools => {
     path
   })).data;
 
-  console.log(`${JSON.stringify(posts[0])}`);
-
   // Count the number of posts in repo posts folder 
   postsCount = posts.length;
 
   // Get the date and title of latest blog post in repo
-  // postTitle = posts[0].slice(11).split('.')[0].split('-').join(' ');
-  // postDate = posts[0].slice(0.10);
+  postTitle = posts[0]["name"].slice(11).split('.')[0].split('-').join(' ');
+  postDate = posts[0]["name"].slice(0.10);
 
-  // console.log(`${postTitle} AND ${postDate}`);
+  console.log(`${postTitle} AND ${postDate}`);
 
   // Get the path to the last blog post in repo
 
