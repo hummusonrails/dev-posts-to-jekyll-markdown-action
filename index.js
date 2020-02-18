@@ -15,10 +15,12 @@ Toolkit.run(async tools => {
       method: 'get',
       url: 'https://dev.to/api/articles/me?page=1&per_page=6',
       headers: headers
+    }).then(result => { 
+      return result.data
     });
-  }
+  };
   const devPosts = await getData();
-  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts.data}`);
+  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 
   
   // Get date and title of latest blog post
