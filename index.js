@@ -21,14 +21,13 @@ Toolkit.run(async tools => {
       headers: headers
     })
   };
+  // Assign DEV data
   devPosts = (await getData()).data;
-  devPostDate = devPosts[0]['published_at'];
+  devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
   devPostTitle = devPosts[0]['title'];
-  console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
-
-  // // Count number of DEV posts
-  //numOfDevPosts = devPosts.length;
-  //console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
+  // Count number of DEV posts
+  numOfDevPosts = devPosts.length;
+  console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
 
     // Print out the context in Actions dashboard
     // console.log(tools.context);
