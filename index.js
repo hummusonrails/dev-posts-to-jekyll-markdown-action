@@ -6,7 +6,6 @@ const axios = require('axios').default;
 Toolkit.run(async tools => {
 
   // Get Latest DEV Posts
-  var devPosts;
   var headers = {
     "Content-Type": "application/json",
     "api-key": `${process.env.DEV_API_KEY}`
