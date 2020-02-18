@@ -55,7 +55,7 @@ Toolkit.run(async tools => {
     path
   })).data;
 
-  console.log(`${posts[0]}`);
+  console.log(`${JSON.stringify(posts[0])}`);
 
   // Count the number of posts in repo posts folder 
   postsCount = posts.length;
