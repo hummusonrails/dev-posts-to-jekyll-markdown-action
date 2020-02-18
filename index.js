@@ -20,7 +20,7 @@ Toolkit.run(async tools => {
   };
   devPosts = (await getData()).data;
   devPosts.forEach(post => {
-    console.log(`POST: ${post}`);
+    console.log(`POST: ${JSON.stringify(post)}`);
   });
   // console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 
