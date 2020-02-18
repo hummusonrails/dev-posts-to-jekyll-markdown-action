@@ -6,13 +6,13 @@ const axios = require('axios').default;
 Toolkit.run(async tools => {
 
   // Get Latest DEV Posts
+  var devPosts;
   var headers = {
     "Content-Type": "application/json",
     "api-key": `${process.env.DEV_API_KEY}`
   }
 
   const getData = () => {
-    var devPosts;
     return axios({
       method: 'get',
       url: 'https://dev.to/api/articles/me?page=1&per_page=6',
@@ -23,7 +23,8 @@ Toolkit.run(async tools => {
       return devPosts;
     });
   };
-  devPosts = async function(){await getData()};
+  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
+
   
   // Get date and title of latest blog post
   //var devPostDate = devPosts[0]['published_at'];
@@ -34,7 +35,6 @@ Toolkit.run(async tools => {
   //numOfDevPosts = devPosts.length;
   //console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
 
-  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
     // Print out the context in Actions dashboard
     // console.log(tools.context);
 
