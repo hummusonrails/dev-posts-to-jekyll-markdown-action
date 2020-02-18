@@ -11,18 +11,14 @@ Toolkit.run(async tools => {
     "Content-Type": "application/json",
     "api-key": `${process.env.DEV_API_KEY}`
   }
-
-  const getData = async () => {
-    const result = await axios({
+  const getData = () => {
+    return axios({
       method: 'get',
       url: 'https://dev.to/api/articles/me?page=1&per_page=6',
       headers: headers
     });
-    return result
-  };
-  getData().then(result => {
-    devPosts =  result.data
-  });
+  }
+  const devPosts = await getData();
   console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 
   
