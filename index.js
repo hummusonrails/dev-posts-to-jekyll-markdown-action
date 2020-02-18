@@ -18,7 +18,7 @@ Toolkit.run(async tools => {
     });
   }
   const devPosts = await getData();
-  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
+  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts.data}`);
 
   
   // Get date and title of latest blog post
