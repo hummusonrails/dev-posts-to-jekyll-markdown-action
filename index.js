@@ -105,7 +105,7 @@ Toolkit.run(async tools => {
         repo,
         path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
         message: `New markdown file for ${devPostTitle}`,
-        encodedContents
+        content: encodedContents
       }));
     };
   };
