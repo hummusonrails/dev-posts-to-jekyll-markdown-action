@@ -48,8 +48,9 @@ Toolkit.run(async tools => {
   var postsCount; // Count of posts in repo
   var postTitle; // Latest repo post title
   var postDate; // Latest repo post date
-  var postPath; // Path to oldest repo post
+  var lastPostPath; // Path to oldest repo post
 
+  // Get repo posts data
   posts = (await tools.github.repos.getContents({
     owner,
     repo,
@@ -64,9 +65,7 @@ Toolkit.run(async tools => {
   postDate = posts[0]["name"].slice(0,10);
 
   // Get the path to the last blog post in repo
-  postPath = posts[postsCount -1]["path"];
-
-  console.log(postPath);
+  lastPostPath = posts[postsCount -1]["path"];
 
   // Check to see if the repo posts folder has less posts than ${NUM_OF_POSTS} and count of DEV posts
 
