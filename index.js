@@ -2,6 +2,7 @@ const { Toolkit } = require('actions-toolkit')
 const dotenv = require("dotenv");
 dotenv.config();
 const axios = require('axios').default;
+const btoa = require('btoa');
 
 Toolkit.run(async tools => {
 
