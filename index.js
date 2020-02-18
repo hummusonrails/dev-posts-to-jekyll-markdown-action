@@ -28,7 +28,6 @@ Toolkit.run(async tools => {
   devPostTitle = devPosts[0]['title'];
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
-  console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
 
     // Print out the context in Actions dashboard
     // console.log(tools.context);
