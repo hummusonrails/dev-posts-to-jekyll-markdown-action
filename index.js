@@ -13,15 +13,16 @@ Toolkit.run(async tools => {
   }
 
   const getData = async () => {
-    const res = await axios({
+    const result = await axios({
       method: 'get',
       url: 'https://dev.to/api/articles/me?page=1&per_page=6',
       headers: headers
     });
-    devPosts = res.data;
-    return devPosts;
+    return result
   };
-  getData();
+  getData().then(result => {
+    devPosts =  result.data
+  });
   console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 
   
