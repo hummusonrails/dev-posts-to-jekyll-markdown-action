@@ -6,6 +6,7 @@ const axios = require('axios').default;
 Toolkit.run(async tools => {
 
   // Get Latest DEV Posts
+  var devPosts;
   var headers = {
     "Content-Type": "application/json",
     "api-key": `${process.env.DEV_API_KEY}`
@@ -17,7 +18,7 @@ Toolkit.run(async tools => {
       headers: headers
     })
   };
-  const devPosts = (await getData()).data;
+  devPosts = (await getData()).data;
   console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 
   
