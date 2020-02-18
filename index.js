@@ -17,7 +17,7 @@ Toolkit.run(async tools => {
       headers: headers
     }).then(result => { 
       console.log(`RESULT: ${result}`)
-      console.log(`RESULT.DATA: ${result.data}`)
+      console.log(`RESULT.DATA: ${JSON.parse(result.data)}`)
     });
   };
   const devPosts = await getData();
