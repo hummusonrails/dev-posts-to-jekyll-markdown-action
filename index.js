@@ -17,9 +17,7 @@ Toolkit.run(async tools => {
       headers: headers
     })
   };
-  const devPosts = await getData().then(result => {
-    return result.data
-  });
+  const devPosts = (await getData()).data;
   console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
 
   
