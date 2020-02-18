@@ -3,39 +3,38 @@ const dotenv = require("dotenv");
 dotenv.config();
 const axios = require('axios').default;
 
-var devPosts;
-
-// Get Latest DEV Posts
-var headers = {
-  "Content-Type": "application/json",
-  "api-key": `${process.env.DEV_API_KEY}`
-}
-
-const getData = () => {
-  return axios({
-    method: 'get',
-    url: 'https://dev.to/api/articles/me?page=1&per_page=6',
-    headers: headers
-  })
-    // .then(res => {
-    //   devPosts = res.data
-    //   return devPosts;
-    // });
-};
-devPosts = async function(){await getData()};
-
-console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
-// Get date and title of latest blog post
-//var devPostDate = devPosts[0]['published_at'];
-//let devPostTitle = devPosts[0]['title'];
-//console.log(`DATE OF POST: ${devPostDate}`);
-
-// // Count number of DEV posts
-//numOfDevPosts = devPosts.length;
-//console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
-
-// Run your GitHub Action!
 Toolkit.run(async tools => {
+
+  // Get Latest DEV Posts
+  var headers = {
+    "Content-Type": "application/json",
+    "api-key": `${process.env.DEV_API_KEY}`
+  }
+
+  const getData = () => {
+    var devPosts;
+    return axios({
+      method: 'get',
+      url: 'https://dev.to/api/articles/me?page=1&per_page=6',
+      headers: headers
+    })
+    .then(res => {
+      devPosts = res.data
+      return devPosts;
+    });
+  };
+  devPosts = async function(){await getData()};
+  
+  // Get date and title of latest blog post
+  //var devPostDate = devPosts[0]['published_at'];
+  //let devPostTitle = devPosts[0]['title'];
+  //console.log(`DATE OF POST: ${devPostDate}`);
+
+  // // Count number of DEV posts
+  //numOfDevPosts = devPosts.length;
+  //console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
+
+  console.log(`OUTSIDE THE GET REQUEST: \n\n ${devPosts}`);
     // Print out the context in Actions dashboard
     // console.log(tools.context);
 
