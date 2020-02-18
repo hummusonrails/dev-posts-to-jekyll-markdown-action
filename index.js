@@ -10,6 +10,7 @@ Toolkit.run(async tools => {
   var devPosts; // All posts
   var devPostDate; // Date of most recently published DEV post
   var devPostTitle; // Title of most recently published DEV post
+  var numOfDevPosts; // Count of DEV posts
   var headers = {
     "Content-Type": "application/json",
     "api-key": `${process.env.DEV_API_KEY}`
