@@ -74,6 +74,10 @@ Toolkit.run(async tools => {
   // If not, do nothing
 
   // Check to see if the latest DEV post is newer than the latest repo post
+  if (new Date(devPostDate) >= new Date(postDate)) {
+    console.log("dev date is newer");
+  };
+
 
   // If yes, raise a PR that deletes the last blog post, 
   // adds a markdown file for the newest DEV post,
