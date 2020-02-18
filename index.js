@@ -67,20 +67,16 @@ Toolkit.run(async tools => {
   // Get the path to the last blog post in repo
   lastPostPath = posts[postsCount -1]["path"];
 
-  // Check to see if the repo posts folder has less posts than ${NUM_OF_POSTS} and count of DEV posts
-
-  // If yes, raise a PR that adds x - ${COUNT OF POSTS IN REPO} num of DEV posts to repo as markdown files
-
-  // If not, do nothing
-
   // Check to see if the latest DEV post is newer than the latest repo post
-
-  // If yes, raise a PR that deletes the last blog post, 
-  // adds a markdown file for the newest DEV post,
-  // and increments the post num for the remaining posts by 1
-  // (i.e. 2020-02-03-post-3 becomes 2020-02-03-post-4)
-
-  // If not, do nothing
-
-
+  if (new Date(devPostDate) >= new Date(postDate)) {
+    console.log("dev date is newer");
+    // Is there more or equal num posts in the repo than the number of posts set by env var and
+    // Is there less posts in the repo than the amount of DEV posts?
+    if ((postsCount >= process.env.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
+      console.log("there are more repo posts than set by env var & less repo posts then on DEV");
+    } else if ((postsCount < process.env.NUM_OF_POSTS) && (numOfDevPosts > postsCount)) {
+      // Is there less posts in the repo than # set by env var and more posts in DEV posts count?
+      console.log("there are less repo posts than set by env var & more DEV posts than in repo");
+    };
+  };
 });
