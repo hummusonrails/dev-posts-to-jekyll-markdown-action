@@ -1,32 +1,34 @@
 const { Toolkit } = require('actions-toolkit')
 const dotenv = require("dotenv");
 dotenv.config();
-const fetch = require("node-fetch");
+const axios = require('axios').default;
 
-// Create variable to hold DEV Posts
-var devPosts;
-
-// Get Latest DEV Posts
-var headers = {
-  "Content-Type": "application/json",
-  "api-key": `${process.env.DEV_API_KEY}`
-}
-fetch('https://dev.to/api/articles/me?page=1&per_page=6', { method: 'GET', headers: headers})
-  .then(res => res.json())
-  .then(data => devPosts = data)
-  .then(() => console.log(`DEVPOSTS VARIABLE DATA: ${devPosts}`));
-
-// Get date and title of latest blog post
-let devPostDate = devPosts[0]['published_at'];
-let devPostTitle = devPosts[0]['title'];
-console.log(`DATE OF POST: ${devPostDate} AND TITLE OF POST ${devPostTitle}`);
-
-// // Count number of DEV posts
-numOfDevPosts = devPosts.length;
-console.log(`NUMBER OF DEV POSTS: ${numOfDevPosts}`);
-
-// Run your GitHub Action!
 Toolkit.run(async tools => {
+
+  // Get Latest DEV Posts
+  // Create DEV variables
+  var devPosts; // All posts
+  var devPostDate; // Date of most recently published DEV post
+  var devPostTitle; // Title of most recently published DEV post
+  var numOfDevPosts; // Count of DEV posts
+  var headers = {
+    "Content-Type": "application/json",
+    "api-key": `${process.env.DEV_API_KEY}`
+  }
+  const getData = () => {
+    return axios({
+      method: 'get',
+      url: 'https://dev.to/api/articles/me?page=1&per_page=6',
+      headers: headers
+    })
+  };
+  // Assign DEV data
+  devPosts = (await getData()).data;
+  devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
+  devPostTitle = devPosts[0]['title'];
+  // Count number of DEV posts
+  numOfDevPosts = devPosts.length;
+
     // Print out the context in Actions dashboard
     // console.log(tools.context);
 
