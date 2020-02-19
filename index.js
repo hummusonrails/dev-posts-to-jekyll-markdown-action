@@ -87,14 +87,13 @@ Toolkit.run(async tools => {
 
   // Check to see if the latest DEV post is newer than the latest repo post
   if (new Date(devPostDate) >= new Date(postDate)) {
-    console.log("dev date is newer");
     // Is there more or equal num posts in the repo than the number of posts set by env var and
     // Is there less posts in the repo than the amount of DEV posts?
     if ((postsCount >= process.env.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
       console.log("there are more repo posts than set by env var & less repo posts then on DEV");
-    } else if ((postsCount < process.env.NUM_OF_POSTS) && (numOfDevPosts > postsCount)) {
+    
       // Is there less posts in the repo than # set by env var and more posts in DEV posts count?
-      console.log("there are less repo posts than set by env var & more DEV posts than in repo");
+    } else if ((postsCount < process.env.NUM_OF_POSTS) && (numOfDevPosts > postsCount)) {
 
       // Create Markdown File
       fileContents = `
@@ -133,7 +132,7 @@ Toolkit.run(async tools => {
       // Add Markdown File
 
       // If file already exists, modify it with latest changes
-      console.log(`WHAT IS IN POSTS:${JSON.stringify(posts)}`);
+      console.log(`WHAT IS IN POSTS: ${JSON.stringify(posts)}`);
       var currentPostArr = posts.filter(post => (post.name == newJekyllPostFileName));
       console.log(`HERE IS ARRAY OF CURRENT POSTS: ${currentPostArr}`);
       if (currentPostArr.length > 0) {
