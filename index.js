@@ -126,15 +126,32 @@ Toolkit.run(async tools => {
         }));
       };
 
-      // Add Markdown File to New Branch
-      newFile = (await tools.github.repos.createOrUpdateFile({
-        owner,
-        repo,
-        branch: 'dev_to_jekyll',
-        path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
-        message: `New markdown file for ${devPostTitle}`,
-        content: encodedContents
-      }));
+      // Add Markdown File
+
+      // If file already exists, modify it with latest changes
+      if (posts.filter(post => (post.name == `${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`))) {
+        var currentPostSHA;
+        currentPostSHA = post.sha;
+        newFile = (await tools.github.repos.createOrUpdateFile({
+          owner,
+          repo,
+          branch: 'dev_to_jekyll',
+          path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
+          message: `New markdown file for ${devPostTitle}`,
+          content: encodedContents,
+          sha: currentPostSHA
+        }));
+      } else {
+        // If file doesn't already exist, create it as new
+        newFile = (await tools.github.repos.createOrUpdateFile({
+          owner,
+          repo,
+          branch: 'dev_to_jekyll',
+          path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
+          message: `New markdown file for ${devPostTitle}`,
+          content: encodedContents
+        }));
+      }
 
       // Create Pull Request
       newPR = (await tools.github.pulls.create({
