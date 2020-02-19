@@ -173,17 +173,35 @@ Toolkit.run(async tools => {
         };
       };
 
-      // Add Markdown File
-
       // Create Pull Request
-      newPR = (await tools.github.pulls.create({
+
+      // First check if pull request already exists
+      var prArray = (await tools.github.pulls.list({
         owner,
         repo,
-        title: `New DEV Post: ${devPostTitle}`,
-        head: 'dev_to_jekyll',
-        base: 'master',
-        body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
-      }));
+        head: 'dev_to_jekyll'
+      })).data;
+      var prArrayFiltered = prArray.filter(pr => (pr.title == `New DEV Post: ${devPostTitle}`));
+
+      // If PR exists, update current pull request
+      if (prArrayFiltered.length > 0) {
+        var prNumber = prArrayFiltered[0].number;
+        newPr = (await tools.github.pulls.update({
+          owner,
+          repo,
+          pull_number: prNumber,
+        }));
+      // If PR does not exist, create a new one
+      } else if (prArrayFiltered.length == 0) {
+        newPR = (await tools.github.pulls.create({
+          owner,
+          repo,
+          title: `New DEV Post: ${devPostTitle}`,
+          head: 'dev_to_jekyll',
+          base: 'master',
+          body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
+        }));
+      };
     };
   };
 });
