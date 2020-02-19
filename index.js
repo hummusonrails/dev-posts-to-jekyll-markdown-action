@@ -7,13 +7,13 @@ const btoa = require('btoa');
 Toolkit.run(async tools => {
 
   // Print out the context in Actions dashboard
-  // console.log(tools.context);
+  console.log(tools.context);
 
   // Assign owner and repo data to variables
   const owner = tools.context.payload.repository.owner.login;
   const repo = tools.context.payload.repository.name;
   const repoSHA = tools.context.sha;
-  console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
+  // console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
   // Get Latest DEV Posts
 
@@ -28,21 +28,21 @@ Toolkit.run(async tools => {
     "Content-Type": "application/json",
     "api-key": `${process.env.DEV_API_KEY}`
   }
-  const getData = () => {
-    return axios({
-      method: 'get',
-      url: 'https://dev.to/api/articles/me?page=1&per_page=6',
-      headers: headers
-    })
-  };
+  // const getData = () => {
+  //   return axios({
+  //     method: 'get',
+  //     url: 'https://dev.to/api/articles/me?page=1&per_page=6',
+  //     headers: headers
+  //   })
+  // };
   // Assign DEV data
-  devPosts = (await getData()).data;
-  devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
-  devPostTitle = devPosts[0]['title'];
-  devPostCoverImage = devPosts[0]['cover_image'];
-  devPostURL = devPosts[0]['url'];
-  // Count number of DEV posts
-  numOfDevPosts = devPosts.length;
+  // devPosts = (await getData()).data;
+  // devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
+  // devPostTitle = devPosts[0]['title'];
+  // devPostCoverImage = devPosts[0]['cover_image'];
+  // devPostURL = devPosts[0]['url'];
+  // // Count number of DEV posts
+  // numOfDevPosts = devPosts.length;
 
   // Repository _posts folder data
 
@@ -104,37 +104,37 @@ Toolkit.run(async tools => {
       
       ---
       `.trim();
-      
+
       // Encode it in Base64 Encoding
       const encodedContents = btoa(fileContents);
 
       // Creatw a New Branch for the PR
-      newBranch = (await tools.github.git.createRef({
-        owner,
-        repo,
-        ref: 'refs/heads/dev_to_jekyll',
-        sha: repoSHA
-      }));
+      // newBranch = (await tools.github.git.createRef({
+      //   owner,
+      //   repo,
+      //   ref: 'refs/heads/dev_to_jekyll',
+      //   sha: repoSHA
+      // }));
 
       // Add Markdown File to New Branch
-      newFile = (await tools.github.repos.createOrUpdateFile({
-        owner,
-        repo,
-        branch: 'dev_to_jekyll',
-        path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
-        message: `New markdown file for ${devPostTitle}`,
-        content: encodedContents
-      }));
+      // newFile = (await tools.github.repos.createOrUpdateFile({
+      //   owner,
+      //   repo,
+      //   branch: 'dev_to_jekyll',
+      //   path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
+      //   message: `New markdown file for ${devPostTitle}`,
+      //   content: encodedContents
+      // }));
 
       // Create Pull Request
-      newPR = (await tools.github.pulls.create({
-        owner,
-        repo,
-        title: `New DEV Post: ${devPostTitle}`,
-        head: 'dev_to_jekyll',
-        base: 'master',
-        body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
-      }));
+      // newPR = (await tools.github.pulls.create({
+      //   owner,
+      //   repo,
+      //   title: `New DEV Post: ${devPostTitle}`,
+      //   head: 'dev_to_jekyll',
+      //   base: 'master',
+      //   body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
+      // }));
     };
   };
 });
