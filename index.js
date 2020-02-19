@@ -115,7 +115,7 @@ Toolkit.run(async tools => {
         repo
       })).data;
 
-      console.log(JSON.stringify(`REFS DATA: ${refsData}`));
+      console.log(`REFS DATA: ${JSON.stringify(refsData)}`);
 
       // Create a New Branch for the PR
       newBranch = (await tools.github.git.createRef({
