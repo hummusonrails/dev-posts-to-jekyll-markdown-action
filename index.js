@@ -103,6 +103,7 @@ Toolkit.run(async tools => {
       newFile = (await tools.github.repos.createOrUpdateFile({
         owner,
         repo,
+        branch: 'dev_to_jekyll',
         path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
         message: `New markdown file for ${devPostTitle}`,
         content: encodedContents
