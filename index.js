@@ -15,6 +15,14 @@ Toolkit.run(async tools => {
   const repoSHA = tools.context.sha;
   // console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
+  // Check if Branch Already Exists
+  refsData = (await tools.github.git.listRefs({
+    owner,
+    repo
+  })).data;
+
+  console.log(`REFS DATA: ${JSON.stringify(refsData)}`);
+
   // Get Latest DEV Posts
 
   // Create DEV variables
