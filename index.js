@@ -123,15 +123,16 @@ Toolkit.run(async tools => {
         repo
       })).data;
 
-      console.log(`REFS DATA: ${JSON.stringify(refsData)}`);
-
-      // Create a New Branch for the PR
-      newBranch = (await tools.github.git.createRef({
-        owner,
-        repo,
-        ref: 'refs/heads/dev_to_jekyll',
-        sha: repoSHA
-      }));
+      // If branch does not exist, create branch
+      if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
+        // Create a New Branch for the PR
+        newBranch = (await tools.github.git.createRef({
+          owner,
+          repo,
+          ref: 'refs/heads/dev_to_jekyll',
+          sha: repoSHA
+        }));
+      };
 
       // Add Markdown File to New Branch
       newFile = (await tools.github.repos.createOrUpdateFile({
