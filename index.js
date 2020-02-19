@@ -133,6 +133,7 @@ Toolkit.run(async tools => {
       // Add Markdown File
 
       // If file already exists, modify it with latest changes
+      console.log(`WHAT IS IN POSTS:${JSON.stringify(posts)}`);
       var currentPostArr = posts.filter(post => (post.name == newJekyllPostFileName));
       console.log(`HERE IS ARRAY OF CURRENT POSTS: ${currentPostArr}`);
       if (currentPostArr.length > 0) {
