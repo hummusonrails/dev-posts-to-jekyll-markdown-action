@@ -7,13 +7,12 @@ const btoa = require('btoa');
 Toolkit.run(async tools => {
 
   // Print out the context in Actions dashboard
-  console.log(tools.context);
+  // console.log(tools.context);
 
   // Assign owner and repo data to variables
   const owner = tools.context.payload.repository.owner.login;
   const repo = tools.context.payload.repository.name;
   const repoSHA = tools.context.sha;
-  console.log(repoSHA);
   console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
   // Get Latest DEV Posts
@@ -58,6 +57,7 @@ Toolkit.run(async tools => {
   var lastPostPath; // Path to oldest repo post
   var lastPostSHA; // SHA for oldest repo post
   var newFile; // Pull Request
+  var newBranch; // New Branch for PR
 
   // Get repo posts data
   posts = (await tools.github.repos.getContents({
@@ -89,6 +89,8 @@ Toolkit.run(async tools => {
     } else if ((postsCount < process.env.NUM_OF_POSTS) && (numOfDevPosts > postsCount)) {
       // Is there less posts in the repo than # set by env var and more posts in DEV posts count?
       console.log("there are less repo posts than set by env var & more DEV posts than in repo");
+
+      // Create Markdown File
       fileContents = `
       ---
       layout: defaults
@@ -101,7 +103,20 @@ Toolkit.run(async tools => {
       
       ---
       `.trim();
+      // Encode it in Base64 Encoding
       const encodedContents = btoa(fileContents);
+
+      // Creatw a New Branch for the PR
+      newBranch = (await tools.github.git.createRef({
+        owner,
+        repo,
+        ref: 'refs/heads/dev_to_jekyll',
+        sha: repoSHA
+      }));
+
+      console.log(JSON.stringify(newBranch.data));
+
+      // Add Markdown File to New Branch
       newFile = (await tools.github.repos.createOrUpdateFile({
         owner,
         repo,
