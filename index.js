@@ -134,7 +134,7 @@ Toolkit.run(async tools => {
 
       // If file already exists, modify it with latest changes
       var currentPostArr = posts.filter(post => (post.name == newJekyllPostFileName));
-      if (currentPostArr.length == 0) {
+      if (currentPostArr.length > 0) {
         console.log(`HERE IS POST: ${currentPostArr[0]}`);
         var currentPostSHA;
         currentPostSHA = post[0].sha;
