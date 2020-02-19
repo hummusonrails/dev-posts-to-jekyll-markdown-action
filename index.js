@@ -133,10 +133,11 @@ Toolkit.run(async tools => {
       // Add Markdown File
 
       // If file already exists, modify it with latest changes
-      if (posts.filter(post => (post.name == newJekyllPostFileName))) {
-        console.log(`HERE IS POST: ${post}`);
+      var currentPostArr = posts.filter(post => (post.name == newJekyllPostFileName));
+      if (currentPostArr.length == 0) {
+        console.log(`HERE IS POST: ${currentPostArr[0]}`);
         var currentPostSHA;
-        currentPostSHA = post.sha;
+        currentPostSHA = post[0].sha;
         newFile = (await tools.github.repos.createOrUpdateFile({
           owner,
           repo,
