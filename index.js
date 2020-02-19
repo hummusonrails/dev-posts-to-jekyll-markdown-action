@@ -56,8 +56,9 @@ Toolkit.run(async tools => {
   var postDate; // Latest repo post date
   var lastPostPath; // Path to oldest repo post
   var lastPostSHA; // SHA for oldest repo post
-  var newFile; // Pull Request
+  var newFile; // New Markdown File
   var newBranch; // New Branch for PR
+  var newPR; // New Pull Request
 
   // Get repo posts data
   posts = (await tools.github.repos.getContents({
@@ -103,6 +104,7 @@ Toolkit.run(async tools => {
       
       ---
       `.trim();
+      
       // Encode it in Base64 Encoding
       const encodedContents = btoa(fileContents);
 
@@ -114,8 +116,6 @@ Toolkit.run(async tools => {
         sha: repoSHA
       }));
 
-      console.log(JSON.stringify(newBranch.data));
-
       // Add Markdown File to New Branch
       newFile = (await tools.github.repos.createOrUpdateFile({
         owner,
@@ -124,6 +124,16 @@ Toolkit.run(async tools => {
         path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
         message: `New markdown file for ${devPostTitle}`,
         content: encodedContents
+      }));
+
+      // Create Pull Request
+      newPR = (await tools.github.pulls.create({
+        owner,
+        repo,
+        title: `New DEV Post: ${devPostTitle}`,
+        head: 'dev_to_jekyll',
+        base: 'master',
+        body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
       }));
     };
   };
