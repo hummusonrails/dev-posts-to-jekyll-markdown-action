@@ -7,7 +7,7 @@ const btoa = require('btoa');
 Toolkit.run(async tools => {
 
   // Print out the context in Actions dashboard
-  console.log(tools.context);
+  // console.log(tools.context);
 
   // Assign owner and repo data to variables
   const owner = tools.context.payload.repository.owner.login;
@@ -107,6 +107,14 @@ Toolkit.run(async tools => {
 
       // Encode it in Base64 Encoding
       const encodedContents = btoa(fileContents);
+
+      // Check if Branch Already Exists
+      refsData = (await tools.github.git.listRefs({
+        owner,
+        repo
+      })).data;
+
+      console.log(JSON.stringify(refsData));
 
       // Creatw a New Branch for the PR
       // newBranch = (await tools.github.git.createRef({
