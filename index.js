@@ -7,7 +7,7 @@ const btoa = require('btoa');
 Toolkit.run(async tools => {
 
   // Print out the context in Actions dashboard
-  // console.log(tools.context);
+  console.log(tools.context);
 
   // Assign owner and repo data to variables
   const owner = tools.context.payload.repository.owner.login;
