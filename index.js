@@ -60,6 +60,7 @@ Toolkit.run(async tools => {
   var refsData; // Data on Current Repo Refs
   var newBranch; // New Branch for PR
   var newPR; // New Pull Request
+  var newJekyllPostFileName; // File name for new Jekyll post
 
   // Get repo posts data
   posts = (await tools.github.repos.getContents({
@@ -80,6 +81,9 @@ Toolkit.run(async tools => {
 
   // Get SHA of last repo post
   lastPostSHA = posts[postsCount -1]["sha"];
+
+  // Format file name for possible new blog post
+  newJekyllPostFileName = `${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`;
 
   // Check to see if the latest DEV post is newer than the latest repo post
   if (new Date(devPostDate) >= new Date(postDate)) {
@@ -129,14 +133,15 @@ Toolkit.run(async tools => {
       // Add Markdown File
 
       // If file already exists, modify it with latest changes
-      if (posts.filter(post => (post.name == `${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`))) {
+      if (posts.filter(post => (post.name == newJekyllPostFileName))) {
+        console.log(`HERE IS POST: ${post}`);
         var currentPostSHA;
         currentPostSHA = post.sha;
         newFile = (await tools.github.repos.createOrUpdateFile({
           owner,
           repo,
           branch: 'dev_to_jekyll',
-          path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
+          path: `_posts/${newJekyllPostFileName}`,
           message: `New markdown file for ${devPostTitle}`,
           content: encodedContents,
           sha: currentPostSHA
