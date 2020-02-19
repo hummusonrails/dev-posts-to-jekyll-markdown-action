@@ -5,8 +5,6 @@ const axios = require('axios').default;
 const btoa = require('btoa');
 
 Toolkit.run(async tools => {
-
-
   // Assign owner and repo data to variables
   const owner = tools.context.payload.repository.owner.login;
   const repo = tools.context.payload.repository.name;
@@ -44,7 +42,6 @@ Toolkit.run(async tools => {
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
 
-
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
 
@@ -54,14 +51,10 @@ Toolkit.run(async tools => {
   var path = '_posts';
   var posts; // All posts in repo
   var postsCount; // Count of posts in repo
-  var postTitle; // Latest repo post title
   var postDate; // Latest repo post date
   var lastPostPath; // Path to oldest repo post
   var lastPostSHA; // SHA for oldest repo post
-  var newFile; // New Markdown File
   var refsData; // Data on Current Repo Refs
-  var newBranch; // New Branch for PR
-  var newPR; // New Pull Request
   var newJekyllPostFileName; // File name for new Jekyll post
 
   // Get repo posts data
