@@ -90,7 +90,7 @@ Toolkit.run(async tools => {
     // Is there more or equal num posts in the repo than the number of posts set by env var and
     // Is there less posts in the repo than the amount of DEV posts?
     if ((postsCount >= process.env.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
-      console.log("there are more repo posts than set by env var & less repo posts then on DEV");
+      console.log("there are more repo posts than set by env variable & less repo posts then on DEV");
     
       // Is there less posts in the repo than # set by env var and more posts in DEV posts count?
     } else if ((postsCount < process.env.NUM_OF_POSTS) && (numOfDevPosts > postsCount)) {
