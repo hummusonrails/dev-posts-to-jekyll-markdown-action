@@ -57,6 +57,7 @@ Toolkit.run(async tools => {
   var lastPostPath; // Path to oldest repo post
   var lastPostSHA; // SHA for oldest repo post
   var newFile; // New Markdown File
+  var refsData; // Data on Current Repo Refs
   var newBranch; // New Branch for PR
   var newPR; // New Pull Request
 
