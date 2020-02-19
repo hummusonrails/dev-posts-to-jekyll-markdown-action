@@ -134,10 +134,12 @@ Toolkit.run(async tools => {
 
       // If file already exists, modify it with latest changes
       var currentPostArr = posts.filter(post => (post.name == newJekyllPostFileName));
+      console.log(`HERE IS ARRAY OF CURRENT POSTS: ${currentPostArr}`);
       if (currentPostArr.length > 0) {
-        console.log(`HERE IS POST: ${currentPostArr[0]}`);
+        console.log(`THERE IS SOMETHING IN CURRENT POST ARRAY!: ${currentPostArr[0]}`);
         var currentPostSHA;
         currentPostSHA = post[0].sha;
+        console.log(`CURRENT POST SHA: ${currentPostSHA}`);
         newFile = (await tools.github.repos.createOrUpdateFile({
           owner,
           repo,
@@ -147,7 +149,8 @@ Toolkit.run(async tools => {
           content: encodedContents,
           sha: currentPostSHA
         }));
-      } else {
+      } else if (currentPostArr.length == 0) {
+        console.log("THERE IS NOTHING IN CURRENTPOSTARR")
         // If file doesn't already exist, create it as new
         newFile = (await tools.github.repos.createOrUpdateFile({
           owner,
