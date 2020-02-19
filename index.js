@@ -127,40 +127,53 @@ Toolkit.run(async tools => {
           ref: 'refs/heads/dev_to_jekyll',
           sha: repoSHA
         }));
-      };
-
-      // Add Markdown File
-
-      // If file already exists, modify it with latest changes
-      console.log(`WHAT IS IN POSTS: ${JSON.stringify(posts)}`);
-      var currentPostArr = posts.filter(post => (post.name == newJekyllPostFileName));
-      console.log(`HERE IS ARRAY OF CURRENT POSTS: ${currentPostArr}`);
-      if (currentPostArr.length > 0) {
-        console.log(`THERE IS SOMETHING IN CURRENT POST ARRAY!: ${currentPostArr[0]}`);
-        var currentPostSHA;
-        currentPostSHA = post[0].sha;
-        console.log(`CURRENT POST SHA: ${currentPostSHA}`);
+        // Create a new file in the new branch
         newFile = (await tools.github.repos.createOrUpdateFile({
           owner,
           repo,
           branch: 'dev_to_jekyll',
           path: `_posts/${newJekyllPostFileName}`,
           message: `New markdown file for ${devPostTitle}`,
-          content: encodedContents,
-          sha: currentPostSHA
-        }));
-      } else if (currentPostArr.length == 0) {
-        console.log("THERE IS NOTHING IN CURRENTPOSTARR")
-        // If file doesn't already exist, create it as new
-        newFile = (await tools.github.repos.createOrUpdateFile({
+          content: encodedContents
+        })); 
+      // If branch does exist, check for and then update the current file within it
+      } else if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 1) {
+        // Check to see if file exists
+        branchPosts = (await tools.github.repos.getContents({
           owner,
           repo,
-          branch: 'dev_to_jekyll',
-          path: `_posts/${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`,
-          message: `New markdown file for ${devPostTitle}`,
-          content: encodedContents
-        }));
-      }
+          path,
+          ref: 'refs/heads/dev_to_jekyll'
+        })).data;
+        var branchPostsFiltered = branchPosts.filter(post => (post.name == newJekyllPostFileName));
+        console.log(`HERE IS ARRAY OF CURRENT POSTS: ${branchPostsFiltered}`);
+        // If the file already exists in branch then edit it with latest changes
+        if (branchPostsFiltered.length > 0) {
+          console.log(`THERE WAS SOMETHING THAT MATCHED!: ${branchPostsFiltered[0]}`);
+          var branchPostSHA = branchPostsFiltered[0].sha;
+          newFile = (await tools.github.repos.createOrUpdateFile({
+            owner,
+            repo,
+            branch: 'dev_to_jekyll',
+            path: `_posts/${newJekyllPostFileName}`,
+            message: `Edited markdown file for ${devPostTitle}`,
+            content: encodedContents,
+            sha: branchPostSHA
+          }));
+        // If file does not exist in branch, then create a new one
+        } else if (branchPostsFiltered.length == 0) {
+          newFile = (await tools.github.repos.createOrUpdateFile({
+            owner,
+            repo,
+            branch: 'dev_to_jekyll',
+            path: `_posts/${newJekyllPostFileName}`,
+            message: `New markdown file for ${devPostTitle}`,
+            content: encodedContents
+          }));
+        };
+      };
+
+      // Add Markdown File
 
       // Create Pull Request
       newPR = (await tools.github.pulls.create({
