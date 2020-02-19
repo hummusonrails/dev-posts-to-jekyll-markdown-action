@@ -12,7 +12,7 @@ Toolkit.run(async tools => {
   // Assign owner and repo data to variables
   const owner = tools.context.payload.repository.owner.login;
   const repo = tools.context.payload.repository.name;
-  const repoSHA = tools.context.payload.repository.sha;
+  const repoSHA = tools.context.sha;
   console.log(repoSHA);
   console.log(`THIS IS THE OWNER: ${owner} AND THIS IS THE REPO: ${repo}`);
 
