@@ -8,9 +8,9 @@ Toolkit.run(async tools => {
   console.log(tools.context);
   console.log(`REPO: ${JSON.stringify(tools.context.repo)}`);
   // Assign owner and repo data to variables
-  const owner = tools.context.repo.owner.login;
-  const repo = tools.context.repo.name;
-  const repoSHA = tools.context.repo.sha;
+  const owner = tools.context.repo.owner;
+  const repo = tools.context.repo.repo;
+  // const repoSHA = tools.context.repo.sha;
 
   // Get Latest DEV Posts
 
@@ -122,6 +122,8 @@ Toolkit.run(async tools => {
       owner,
       repo
     })).data;
+
+    console.log(`REFSDATA: ${JSON.stringify(refsData)}`);
 
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
