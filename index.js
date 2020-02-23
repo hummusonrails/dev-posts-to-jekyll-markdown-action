@@ -5,7 +5,8 @@ const axios = require('axios').default;
 const btoa = require('btoa');
 
 Toolkit.run(async tools => {
-  console.log(tools.context)
+  console.log(tools.context);
+  console.log(`REPO: ${tools.context.repo}`);
   // Assign owner and repo data to variables
   const owner = tools.context.repo.owner.login;
   const repo = tools.context.repo.name;
