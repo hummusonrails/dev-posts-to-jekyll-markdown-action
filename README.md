@@ -34,7 +34,11 @@ jobs:
       NUM_OF_POSTS: "${{ secrets.NUM_OF_POSTS }}"
 ```
 
-* Add the `DEV_API_KEY` and `NUM_OF_POSTS` environment variables to your [GitHub repository's encrypted secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+* Add the following [secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) to your repository:
+    * `DEV_API_KEY` *(Your API key from DEV.to)*
+    * `NUM_OF_POSTS` *(The maximum number of posts)*
+    * `REPO_OWNER` *(The owner of the repository, i.e. "jane")*
+    * `REPO` *(Your repository name, i.e. "sample-repository")*
 * Every Monday and Thursday at midnight this action will run. If there are any new DEV posts during that time, the action will create the relevant pull requests for you to review.
 
 ## Contributing
