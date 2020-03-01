@@ -121,11 +121,9 @@ Toolkit.run(async tools => {
       owner,
       repo
     })).data;
-    console.log(`BEFORE THE IF: ${refsData}`);
 
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
-      console.log(`IN THE IF: ${refsData}`);
 
       // Get Master Branch SHA
       refsFiltered = refsdata.filter(ref => ref.ref == 'refs/heads/master');
