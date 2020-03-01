@@ -6,8 +6,9 @@ const btoa = require('btoa');
 
 Toolkit.run(async tools => {
   // Assign owner and repo data to variables
-  const owner = tools.context.repo.owner;
-  const repo = tools.context.repo.repo;
+  const owner = secrets.REPO_OWNER
+  const repo = secrets.REPO
+  const repoSHA = tools.context.sha;
 
   // Get Latest DEV Posts
 
@@ -23,7 +24,7 @@ Toolkit.run(async tools => {
   // Create headers for DEV request
   var headers = {
     "Content-Type": "application/json",
-    "api-key": `${process.env.DEV_API_KEY}`
+    "api-key": `${secrets.DEV_API_KEY}`
   }
 
   // Make the API calls
@@ -84,7 +85,7 @@ Toolkit.run(async tools => {
   if (new Date(devPostDate) >= new Date(postDate)) {
 
     // Are there more posts than number set in environment variable and more on DEV available to import?
-    if ((postsCount >= process.env.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
+    if ((postsCount >= secrets.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
 
       // If so, delete the oldest post on blog
       deletedPost = (await tools.github.repos.deleteFile({
@@ -120,9 +121,11 @@ Toolkit.run(async tools => {
       owner,
       repo
     })).data;
+    console.log(`BEFORE THE IF: ${refsData}`);
 
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
+      console.log(`IN THE IF: ${refsData}`);
 
       // Get Master Branch SHA
       refsFiltered = refsdata.filter(ref => ref.ref == 'refs/heads/master');
@@ -204,6 +207,7 @@ Toolkit.run(async tools => {
         repo,
         pull_number: prNumber,
       }));
+      tools.log.success("PR updated");
         
     // If PR does not exist, create a new one
     } else if (prArrayFiltered.length == 0) {
@@ -215,6 +219,9 @@ Toolkit.run(async tools => {
         base: 'master',
         body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
       }));
+      tools.log.success("PR created");
     };
+    tools.exit.success("Processing complete");
   };
+  tools.exit.success("There are no posts on DEV newer than the posts on your Jekyll site.");
 });
