@@ -6,8 +6,8 @@ const btoa = require('btoa');
 
 Toolkit.run(async tools => {
   // Assign owner and repo data to variables
-  console.log(tools.context)
   const owner = process.env.REPO_OWNER;
+  console.log(`THIS IS THE OWNER ENV VALUE: ${owner}`);
   console.log(`THIS IS THE OWNER: ${owner}`);
   const repo = process.env.REPO;
   console.log(`THIS IS THE REPO: ${repo}`);
