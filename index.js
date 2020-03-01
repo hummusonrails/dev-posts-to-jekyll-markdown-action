@@ -6,8 +6,8 @@ const btoa = require('btoa');
 
 Toolkit.run(async tools => {
   // Assign owner and repo data to variables
-  const owner = process.env.REPO_OWNER ? process.env.REPO_OWNER : 'benhayehudi';
-  const repo = process.env.REPO ? process.env.REPO : 'portfolio-site-client-3.0';
+  const owner = secrets.REPO_OWNER
+  const repo = secrets.REPO
   const repoSHA = tools.context.sha;
 
   // Get Latest DEV Posts
@@ -23,7 +23,7 @@ Toolkit.run(async tools => {
   // Create headers for DEV request
   var headers = {
     "Content-Type": "application/json",
-    "api-key": `${process.env.DEV_API_KEY}`
+    "api-key": `${secrets.DEV_API_KEY}`
   }
 
   // Make the API calls
@@ -84,7 +84,7 @@ Toolkit.run(async tools => {
   if (new Date(devPostDate) >= new Date(postDate)) {
 
     // Are there more posts than number set in environment variable and more on DEV available to import?
-    if ((postsCount >= process.env.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
+    if ((postsCount >= secrets.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
 
       // If so, delete the oldest post on blog
       deletedPost = (await tools.github.repos.deleteFile({
