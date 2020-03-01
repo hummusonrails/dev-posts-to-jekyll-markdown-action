@@ -111,6 +111,9 @@ Toolkit.run(async tools => {
     ---
     `.trim();
 
+    // Remove extraneous indentation
+    fileContents = fileContents.replace(/^ {4}/gm, '');
+
     // Encode it in Base64 Encoding
     const encodedContents = btoa(fileContents);
 
