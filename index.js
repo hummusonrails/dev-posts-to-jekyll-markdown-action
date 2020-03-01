@@ -120,9 +120,11 @@ Toolkit.run(async tools => {
       owner,
       repo
     })).data;
+    console.log(`BEFORE THE IF: ${refsData}`);
 
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
+      console.log(`IN THE IF: ${refsData}`);
 
       // Create a New Branch for the PR
       newBranch = (await tools.github.git.createRef({
@@ -200,6 +202,7 @@ Toolkit.run(async tools => {
         repo,
         pull_number: prNumber,
       }));
+      tools.log.success("PR updated");
         
     // If PR does not exist, create a new one
     } else if (prArrayFiltered.length == 0) {
@@ -211,6 +214,9 @@ Toolkit.run(async tools => {
         base: 'master',
         body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
       }));
+      tools.log.success("PR created");
     };
+    tools.exit.success("Processing complete");
   };
+  tools.exit.success("There are no posts on DEV newer than the posts on your Jekyll site.");
 });
