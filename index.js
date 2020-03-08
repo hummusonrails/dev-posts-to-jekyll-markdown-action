@@ -19,7 +19,7 @@ Toolkit.run(async tools => {
   var devPostCoverImage; // Cover Image of most recent published DEV post
   var devPostURL; // URL to most recently published DEV post
   var numOfDevPosts; // Count of DEV posts
-  var repoSHA; // SHA of Master Branch in Repo
+  var masterRepoSHA; // SHA of Master Branch in Repo
 
   // Create headers for DEV request
   var headers = {
@@ -130,14 +130,14 @@ Toolkit.run(async tools => {
 
       // Get Master Branch SHA
       refsFiltered = refsdata.filter(ref => ref.ref == 'refs/heads/master');
-      repoSHA = refsFiltered[0]["object"]["sha"];
+      masterRepoSHA = refsFiltered[0]["object"]["sha"];
 
       // Create a New Branch for the PR
       newBranch = (await tools.github.git.createRef({
         owner,
         repo,
         ref: 'refs/heads/dev_to_jekyll',
-        sha: repoSHA
+        sha: masterRepoSHA
       }));
 
       // Create a new file in the new branch
