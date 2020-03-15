@@ -6,9 +6,7 @@ const btoa = require('btoa');
 
 Toolkit.run(async tools => {
   // Assign owner and repo data to variable
-  console.log(tools.context);
   const owner = process.env.REPO_OWNER
-  console.log(`THE OWNER IS ${owner}`);
   const repo = process.env.REPO
   const repoSHA = tools.context.sha;
 
@@ -66,8 +64,6 @@ Toolkit.run(async tools => {
     repo,
     path
   })).data;
-
-  console.log("THE REPO POSTS: " + JSON.stringify(posts));
 
   // Count the number of posts in repo posts folder 
   postsCount = posts.length;
@@ -128,6 +124,7 @@ Toolkit.run(async tools => {
       owner,
       repo
     })).data;
+    console.log(refsData);
 
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
