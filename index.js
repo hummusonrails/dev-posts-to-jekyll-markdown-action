@@ -124,7 +124,6 @@ Toolkit.run(async tools => {
       owner,
       repo
     })).data;
-    console.log(refsData);
 
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
