@@ -5,9 +5,9 @@ const axios = require('axios').default;
 const btoa = require('btoa');
 
 Toolkit.run(async tools => {
-  // Assign owner and repo data to variables
-  const owner = secrets.REPO_OWNER
-  const repo = secrets.REPO
+  // Assign owner and repo data to variable
+  const owner = process.env.REPO_OWNER
+  const repo = process.env.REPO
   const repoSHA = tools.context.sha;
 
   // Get Latest DEV Posts
@@ -24,7 +24,7 @@ Toolkit.run(async tools => {
   // Create headers for DEV request
   var headers = {
     "Content-Type": "application/json",
-    "api-key": `${secrets.DEV_API_KEY}`
+    "api-key": `${process.env.DEV_API_KEY}`
   }
 
   // Make the API calls
@@ -85,7 +85,7 @@ Toolkit.run(async tools => {
   if (new Date(devPostDate) >= new Date(postDate)) {
 
     // Are there more posts than number set in environment variable and more on DEV available to import?
-    if ((postsCount >= secrets.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
+    if ((postsCount >= process.env.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
 
       // If so, delete the oldest post on blog
       deletedPost = (await tools.github.repos.deleteFile({
@@ -129,7 +129,7 @@ Toolkit.run(async tools => {
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
 
       // Get Master Branch SHA
-      refsFiltered = refsdata.filter(ref => ref.ref == 'refs/heads/master');
+      refsFiltered = refsData.filter(ref => ref.ref == 'refs/heads/master');
       masterRepoSHA = refsFiltered[0]["object"]["sha"];
 
       // Create a New Branch for the PR
