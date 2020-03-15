@@ -38,6 +38,7 @@ Toolkit.run(async tools => {
 
   // Assign DEV data
   devPosts = (await getData()).data;
+  console.log(JSON.stringify(devPosts));
   devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
