@@ -5,7 +5,8 @@ const axios = require('axios').default;
 const btoa = require('btoa');
 
 Toolkit.run(async tools => {
-  // Assign owner and repo data to variables
+  // Assign owner and repo data to variable
+  console.log(tools.context);
   const owner = `${process.env.REPO_OWNER}`
   const repo = `${process.env.REPO}`
   const repoSHA = tools.context.sha;
@@ -38,7 +39,6 @@ Toolkit.run(async tools => {
 
   // Assign DEV data
   devPosts = (await getData()).data;
-  console.log(JSON.stringify(devPosts));
   devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
