@@ -8,7 +8,7 @@ Toolkit.run(async tools => {
   // Assign owner and repo data to variable
   console.log(tools.context);
   const owner = process.env.REPO_OWNER
-  console.log(`THE OWNER ${owner}`);
+  console.log(`THE OWNER IS ${owner}`);
   const repo = process.env.REPO
   const repoSHA = tools.context.sha;
 
