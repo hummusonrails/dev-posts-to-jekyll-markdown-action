@@ -7,8 +7,8 @@ const btoa = require('btoa');
 Toolkit.run(async tools => {
   // Assign owner and repo data to variable
   console.log(tools.context);
-  const owner = `${process.env.REPO_OWNER}`
-  const repo = `${process.env.REPO}`
+  const owner = process.env.REPO_OWNER
+  const repo = process.env.REPO
   const repoSHA = tools.context.sha;
 
   // Get Latest DEV Posts
@@ -65,6 +65,8 @@ Toolkit.run(async tools => {
     repo,
     path
   })).data;
+
+  console.log("THE REPO POSTS: " + JSON.stringify(posts));
 
   // Count the number of posts in repo posts folder 
   postsCount = posts.length;
