@@ -23,7 +23,7 @@ Toolkit.run(async tools => {
   // Create headers for DEV request
   var headers = {
     "Content-Type": "application/json",
-    "api-key": `${secrets.DEV_API_KEY}`
+    "api-key": `${process.env.DEV_API_KEY}`
   }
 
   // Make the API calls

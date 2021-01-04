@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: dev-to-jekyll
-      uses: benhayehudi/dev-posts-to-jekyll-markdown-action@master
+      uses: bencgreenberg/dev-posts-to-jekyll-markdown-action@master
     env:
       GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       DEV_API_KEY: "${{ secrets.DEV_API_KEY }}"
