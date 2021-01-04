@@ -84,19 +84,6 @@ Toolkit.run(async tools => {
   // Check to see if the latest DEV post is newer than the latest repo post
   if (new Date(devPostDate) >= new Date(postDate)) {
 
-    // Are there more posts than number set in environment variable and more on DEV available to import?
-    if ((postsCount >= secrets.NUM_OF_POSTS) && (postsCount < numOfDevPosts)) {
-
-      // If so, delete the oldest post on blog
-      deletedPost = (await tools.github.repos.deleteFile({
-        owner,
-        repo,
-        path: lastPostPath,
-        message: 'Deleting oldest blog post from Jekyll site',
-        sha: lastPostSHA
-      }));
-    };
-
     // Create Markdown File
     fileContents = `
     ---
