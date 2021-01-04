@@ -8,7 +8,6 @@ Toolkit.run(async tools => {
   // Assign owner and repo data to variables
   const owner = secrets.REPO_OWNER
   const repo = secrets.REPO
-  const repoSHA = tools.context.sha;
 
   // Get Latest DEV Posts
 
@@ -42,6 +41,7 @@ Toolkit.run(async tools => {
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
+  devPostMarkdown = devPosts[0]['body_markdown'];
 
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
@@ -100,15 +100,20 @@ Toolkit.run(async tools => {
     // Create Markdown File
     fileContents = `
     ---
-    layout: defaults
+    layout: post
     modal-id: ${postsCount+1}
     date: ${devPostDate}
-    img: ${devPostCoverImage}
+    cover: ${devPostCoverImage}
     alt: Cover Image
     title: ${devPostTitle}
     link: ${devPostURL}
+    featured: true
+    author: ben
+    categories: blog
     
     ---
+
+    ${devPostMarkdown}
     `.trim();
 
     // Remove extraneous indentation
