@@ -71,10 +71,9 @@ Toolkit.run(async tools => {
   postsCount = posts.length;
 
   // Get the date and title of latest blog post in repo
-  postTitle = posts[0]["name"].slice(11).split('.')[0].split('-').join(' ');
-  postDate = posts[0]["name"].slice(0,10);
+  postTitle = posts[posts.length - 1]["name"].slice(11).split('.')[0].split('-').join(' ');
+  postDate = posts[posts.length - 1]["name"].slice(0,10);
 
-  console.log(posts);
   console.log(`devPostDate is ${devPostDate} AND blog post date is ${postDate}`);
   console.log(`dev post title is ${devPostTitle} AND blog post title is ${postTitle}`);
 
