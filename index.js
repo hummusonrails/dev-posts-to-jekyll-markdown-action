@@ -41,7 +41,7 @@ Toolkit.run(async tools => {
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
-  devPostMarkdown = devPosts[0]['body_markdown'];
+  devPostHTML = devPosts[0]['body_html'];
 
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
@@ -100,7 +100,7 @@ Toolkit.run(async tools => {
     
     ---
 
-    ${devPostMarkdown}
+    ${devPostHTML}
     `.trim();
 
     // Remove extraneous indentation
