@@ -17,7 +17,7 @@ Toolkit.run(async tools => {
   var devPostTitle; // Title of most recently published DEV post
   var devPostCoverImage; // Cover Image of most recent published DEV post
   var devPostURL; // URL to most recently published DEV post
-  var devPostHTML; // HTML for the post body from DEV
+  var devPostMarkdown; // HTML for the post body from DEV
   var numOfDevPosts; // Count of DEV posts
   var masterRepoSHA; // SHA of Master Branch in Repo
 
@@ -42,9 +42,8 @@ Toolkit.run(async tools => {
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
-  devPostHTML = devPosts[0]['body_html'];
-
-  console.log(devPosts[0]);
+  devPostMarkdown = devPosts[0]['body_markdown'];
+  devPostMarkdown = devPostMarkdown.replace(/---.*?/g, ''); // remove frontmatter
 
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
@@ -103,7 +102,7 @@ Toolkit.run(async tools => {
     
     ---
 
-    ${devPostHTML}
+    ${devPostMarkdown}
     `.trim();
 
     // Remove extraneous indentation
