@@ -43,7 +43,7 @@ Toolkit.run(async tools => {
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
   devPostMarkdown = devPosts[0]['body_markdown'];
-  devPostMarkdown = devPostMarkdown.replace(/---[\s\S]*---/g, ''); // remove frontmatter
+  devPostMarkdown = devPostMarkdown.replace(/---[\s\S]*---/g, '').trim(); // remove frontmatter
 
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
