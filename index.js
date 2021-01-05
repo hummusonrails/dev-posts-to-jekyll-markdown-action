@@ -87,7 +87,7 @@ Toolkit.run(async tools => {
   newJekyllPostFileName = `${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`;
 
   // Check to see if the latest DEV post is newer than the latest repo post
-  if (new Date(devPostDate) >= new Date(postDate)) {
+  if (new Date(devPostDate) > new Date(postDate)) {
 
     // Create Markdown File
     fileContents = `
