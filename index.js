@@ -39,6 +39,7 @@ Toolkit.run(async tools => {
   // Assign DEV data
   devPosts = (await getData()).data;
   devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
+  devPostDate = devPostDate.replace(/T[\s\S]*Z/g, '') // remove time stamp
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
@@ -73,9 +74,6 @@ Toolkit.run(async tools => {
   // Get the date and title of latest blog post in repo
   postTitle = posts[posts.length - 1]["name"].slice(11).split('.')[0].split('-').join(' ');
   postDate = posts[posts.length - 1]["name"].slice(0,10);
-
-  console.log(`devPostDate is ${devPostDate} AND blog post date is ${postDate}`);
-  console.log(`dev post title is ${devPostTitle} AND blog post title is ${postTitle}`);
 
   // Get the path to the last blog post in repo
   lastPostPath = posts[postsCount -1]["path"];
