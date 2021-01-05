@@ -117,13 +117,11 @@ Toolkit.run(async tools => {
       repo
     })).data;
 
-    console.log(refsData);
-
     // If branch does not exist, create branch
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
 
       // Get Master Branch SHA
-      refsFiltered = refsdata.filter(ref => ref.ref == 'refs/heads/master');
+      refsFiltered = refsData.filter(ref => ref.ref == 'refs/heads/master');
       masterRepoSHA = refsFiltered[0]["object"]["sha"];
 
       // Create a New Branch for the PR
