@@ -17,6 +17,7 @@ Toolkit.run(async tools => {
   var devPostTitle; // Title of most recently published DEV post
   var devPostCoverImage; // Cover Image of most recent published DEV post
   var devPostURL; // URL to most recently published DEV post
+  var devPostMarkdown; // HTML for the post body from DEV
   var numOfDevPosts; // Count of DEV posts
   var masterRepoSHA; // SHA of Master Branch in Repo
 
@@ -38,10 +39,12 @@ Toolkit.run(async tools => {
   // Assign DEV data
   devPosts = (await getData()).data;
   devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
+  devPostDate = devPostDate.replace(/T[\s\S]*Z/g, '') // remove time stamp
   devPostTitle = devPosts[0]['title'];
   devPostCoverImage = devPosts[0]['cover_image'];
   devPostURL = devPosts[0]['url'];
   devPostMarkdown = devPosts[0]['body_markdown'];
+  devPostMarkdown = devPostMarkdown.replace(/---[\s\S]*---/g, '').trim(); // remove frontmatter
 
   // Count number of DEV posts
   numOfDevPosts = devPosts.length;
@@ -69,8 +72,8 @@ Toolkit.run(async tools => {
   postsCount = posts.length;
 
   // Get the date and title of latest blog post in repo
-  postTitle = posts[0]["name"].slice(11).split('.')[0].split('-').join(' ');
-  postDate = posts[0]["name"].slice(0,10);
+  postTitle = posts[posts.length - 1]["name"].slice(11).split('.')[0].split('-').join(' ');
+  postDate = posts[posts.length - 1]["name"].slice(0,10);
 
   // Get the path to the last blog post in repo
   lastPostPath = posts[postsCount -1]["path"];
@@ -82,7 +85,7 @@ Toolkit.run(async tools => {
   newJekyllPostFileName = `${devPostDate.split('T')[0]}-${devPostTitle.toLowerCase().split(' ').join('-')}.md`;
 
   // Check to see if the latest DEV post is newer than the latest repo post
-  if (new Date(devPostDate) >= new Date(postDate)) {
+  if (new Date(devPostDate) > new Date(postDate)) {
 
     // Create Markdown File
     fileContents = `
@@ -121,7 +124,7 @@ Toolkit.run(async tools => {
     if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
 
       // Get Master Branch SHA
-      refsFiltered = refsdata.filter(ref => ref.ref == 'refs/heads/master');
+      refsFiltered = refsData.filter(ref => ref.ref == 'refs/heads/master');
       masterRepoSHA = refsFiltered[0]["object"]["sha"];
 
       // Create a New Branch for the PR
