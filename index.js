@@ -62,7 +62,7 @@ Toolkit.run(async tools => {
   var newJekyllPostFileName; // File name for new Jekyll post
 
   // Get repo posts data
-  posts = (await tools.github.repos.getContents({
+  posts = (await tools.github.repos.getContent({
     owner,
     repo,
     path
