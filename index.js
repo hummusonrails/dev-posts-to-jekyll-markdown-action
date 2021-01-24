@@ -41,7 +41,7 @@ Toolkit.run(async tools => {
   devPostDate = devPosts[0]['published_at']; // ex. 2020-02-12T12:45:27.741Z
   devPostDate = devPostDate.replace(/T[\s\S]*Z/g, '') // remove time stamp
   devPostTitle = devPosts[0]['title'];
-  devPostCoverImage = devPosts[0]['cover_image'];
+  devPostCoverImage = devPosts[0]['cover_image'].split("https://").map(val => { return "https://"+val }).slice(1)[1]; // return only the cover image URL without the Cloudinary first half
   devPostURL = devPosts[0]['url'];
   devPostMarkdown = devPosts[0]['body_markdown'];
   devPostMarkdown = devPostMarkdown.replace(/---[\s\S]*---/g, '').trim(); // remove frontmatter
