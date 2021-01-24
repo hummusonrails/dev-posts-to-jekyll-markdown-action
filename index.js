@@ -136,7 +136,7 @@ Toolkit.run(async tools => {
       }));
 
       // Create a new file in the new branch
-      newFile = (await tools.github.repos.createOrUpdateFile({
+      newFile = (await tools.github.repos.createOrUpdateFileContents({
         owner,
         repo,
         branch: 'dev_to_jekyll',
@@ -149,7 +149,7 @@ Toolkit.run(async tools => {
     } else if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 1) {
 
       // Check to see if file exists
-      branchPosts = (await tools.github.repos.getContents({
+      branchPosts = (await tools.github.repos.getContent({
         owner,
         repo,
         path,
@@ -160,7 +160,7 @@ Toolkit.run(async tools => {
       // If the file already exists in branch then edit it with latest changes
       if (branchPostsFiltered.length > 0) {
         var branchPostSHA = branchPostsFiltered[0].sha;
-        newFile = (await tools.github.repos.createOrUpdateFile({
+        newFile = (await tools.github.repos.createOrUpdateFileContents({
           owner,
           repo,
           branch: 'dev_to_jekyll',
@@ -172,7 +172,7 @@ Toolkit.run(async tools => {
 
       // If file does not exist in branch, then create a new one
       } else if (branchPostsFiltered.length == 0) {
-        newFile = (await tools.github.repos.createOrUpdateFile({
+        newFile = (await tools.github.repos.createOrUpdateFileContents({
           owner,
           repo,
           branch: 'dev_to_jekyll',
