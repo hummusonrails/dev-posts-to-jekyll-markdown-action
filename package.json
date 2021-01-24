@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "actions-toolkit": "^2.2.0",
+    "actions-toolkit": "^6.0.1",
     "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "dotenv": "^8.2.0",
