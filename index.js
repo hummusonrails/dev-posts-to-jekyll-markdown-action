@@ -19,7 +19,7 @@ Toolkit.run(async tools => {
   var devPostURL; // URL to most recently published DEV post
   var devPostMarkdown; // HTML for the post body from DEV
   var numOfDevPosts; // Count of DEV posts
-  var masterRepoSHA; // SHA of Master Branch in Repo
+  var mainRepoSHA; // SHA of Main Branch in Repo
 
   // Create headers for DEV request
   var headers = {
@@ -125,14 +125,14 @@ Toolkit.run(async tools => {
 
       // Get Master Branch SHA
       refsFiltered = refsData.filter(ref => ref.name == 'main');
-      masterRepoSHA = refsFiltered[0]["commit"]["sha"];
+      mainRepoSHA = refsFiltered[0]["commit"]["sha"];
 
       // Create a New Branch for the PR
       newBranch = (await tools.github.git.createRef({
         owner,
         repo,
         ref: 'refs/heads/dev_to_jekyll',
-        sha: masterRepoSHA
+        sha: mainRepoSHA
       }));
 
       // Create a new file in the new branch
@@ -212,7 +212,7 @@ Toolkit.run(async tools => {
         repo,
         title: `New DEV Post: ${devPostTitle}`,
         head: 'dev_to_jekyll',
-        base: 'master',
+        base: 'main',
         body: `Automated PR to add the new DEV blog post, ${devPostTitle}, to your Jekyll site as markdown.`
       }));
       tools.log.success("PR created");
