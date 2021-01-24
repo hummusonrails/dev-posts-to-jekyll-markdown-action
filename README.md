@@ -4,7 +4,7 @@ This action does the following:
 
 * Search for a DEV contributor's latest blog posts using the DEV API
 * Check to see if the newest DEV post is newer than the latest post in the Jekyll repository
-* If the DEV post is newer than the newest repository post, raise a pull request in the repository with the DEV post converted to Jekyll markdown and replace the last repository post with the DEV post.
+* If the DEV post is newer than the newest repository post, raise a pull request in the repository with the DEV post converted to Jekyll markdown.
 
 
 ## Installation
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: dev-to-jekyll
-      uses: bencgreenberg/dev-posts-to-jekyll-markdown-action@master
+      uses: bencgreenberg/dev-posts-to-jekyll-markdown-action@main
     env:
       GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       DEV_API_KEY: "${{ secrets.DEV_API_KEY }}"
