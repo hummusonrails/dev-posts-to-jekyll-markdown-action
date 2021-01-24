@@ -115,7 +115,7 @@ Toolkit.run(async tools => {
     // Check if Branch Already Exists
 
     // Get list of repo branches
-    refsData = (await tools.github.git.listBranches({
+    refsData = (await tools.github.repos.listBranches({
       owner,
       repo
     })).data;
