@@ -115,17 +115,17 @@ Toolkit.run(async tools => {
     // Check if Branch Already Exists
 
     // Get list of repo branches
-    refsData = (await tools.github.git.listRefs({
+    refsData = (await tools.github.git.listBranches({
       owner,
       repo
     })).data;
 
     // If branch does not exist, create branch
-    if (refsData.filter(data => (data.ref == 'refs/heads/dev_to_jekyll')).length == 0) {
+    if (refsData.filter(data => (data.name == 'dev_to_jekyll')).length == 0) {
 
       // Get Master Branch SHA
-      refsFiltered = refsData.filter(ref => ref.ref == 'refs/heads/master');
-      masterRepoSHA = refsFiltered[0]["object"]["sha"];
+      refsFiltered = refsData.filter(ref => ref.name == 'main');
+      masterRepoSHA = refsFiltered[0]["commit"]["sha"];
 
       // Create a New Branch for the PR
       newBranch = (await tools.github.git.createRef({
