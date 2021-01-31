@@ -6,6 +6,7 @@ const btoa = require('btoa');
 
 Toolkit.run(async tools => {
   // Assign owner and repo data to variables
+  console.log(tools.context.payload)
   const owner = tools.context.payload.repository.owner.login
   const repo = tools.context.payload.repository.name
 
